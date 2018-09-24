@@ -12,7 +12,7 @@ export ZSH="/Users/phoenixcoder/.oh-my-zsh"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status ssh context dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status ssh context custom_repo_root_name vcs dir)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ram load background_jobs date time)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
@@ -24,6 +24,15 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K VCS
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
+POWERLEVEL9K_CUSTOM_REPO_ROOT_NAME="repo_root_name"
+
+repo_root_name() {
+	local repo_name=$(basename `git rev-parse --show-toplevel 2> /dev/null` 2> /dev/null)	
+
+	if ! [ -z $repo_name ]; then
+		echo 'repo: '$repo_name
+	fi 
+}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

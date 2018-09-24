@@ -13,13 +13,18 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_MODE='awesome-patched'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status ssh context custom_repo_root_name vcs dir)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ram load background_jobs date time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ram load custom_system_cores background_jobs date time)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
 POWERLEVEL9K_STATUS_VERBOSE=false
 pOWERLEVEL9K_DATE_FORMAT=%D{%Y-%d-%m}
 POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE_ALWAYS=true
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_CUSTOM_SYSTEM_CORES="cores"
+
+cores() {
+	echo 'cores:'$(sysctl -n hw.ncpu)
+}
 
 # POWERLEVEL9K VCS
 POWERLEVEL9K_SHOW_CHANGESET=true
@@ -30,7 +35,7 @@ repo_root_name() {
 	local repo_name=$(basename `git rev-parse --show-toplevel 2> /dev/null` 2> /dev/null)	
 
 	if ! [ -z $repo_name ]; then
-		echo 'repo: '$repo_name
+		echo 'repo:'$repo_name
 	fi 
 }
 

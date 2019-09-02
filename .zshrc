@@ -126,3 +126,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls='ls -l'
+alias emacs='emacs -nw'
+alias work='cd /Users/phoenixcoder/workspace/projects/'
+alias workgop='cd /Users/phoenixcoder/workspace/projects/go/src/github.com/phoenixcoder'
+
+# Golang Configuration
+export GOPATH="/Users/phoenixcoder/workspace/projects/go"
+export GOBIN="/Users/phoenixcoder/workspace/projects/go/bin"
+
+# General User Settings
+export PATH=$PATH:/Users/phoenixcoder/Library/Python/3.7/bin
+export PATH=$PATH:${GOPATH}/bin
+export PATH=$PATH:/Users/phoenixcoder/miniconda3/bin

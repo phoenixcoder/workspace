@@ -20,8 +20,13 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-safe-themes
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(org-agenda-files (quote ("~/org/life.org")))
- '(package-selected-packages (quote (hydra exec-path-from-shell go-mode))))
+ '(package-selected-packages
+   (quote
+    (powerline smart-mode-line hydra exec-path-from-shell go-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,15 +46,31 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
+;; Inspiration for these settings taken from the following configs:
+;; http://aaronbedra.com/emacs.d/
+
 ;; General emacs Settings
+(setq inhibit-splash-screen t
+      initial-scratch-message nil
+      initial-major-mode 'org-mode)
+(menu-bar-mode -1)
 (global-display-line-numbers-mode)
+(defalias 'yes-or-no-p 'y-or-n-p)
+2(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t)
+(show-paren-mode t)
+
+;; SML Settings
+;;(sml/setup)
+;;(setq sml/theme 'dark)
 
 ;; Global Key Settings
-(global-set-key (kbd "S-<f1>") (lambda () (interactive) (org-agenda t)))
+(global-set-key (kbd "S-<f1>") (lambda () (interactive) (org-agenda nil "t")))
 (global-set-key (kbd "S-<f2>") 'elfeed)
 (global-set-key (kbd "<f12>") (lambda () (interactive) (find-file "~/.emacs")))
-(global-set-key [mouse-4] (lambda () (interactive) (scroll-up 1)))
-(global-set-key [mouse-5] (lambda () (interactive) (scroll-down 1)))				  
+(global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
+(global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))				  
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
@@ -98,9 +119,6 @@
 ;; (add-to-list 'exec-path "/Users/phoenixcoder/workspace/projects/go/bin")
 (add-to-list 'exec-path "$GOPATH/bin")
 (add-hook 'before-save-hook 'gofmt-before-save)
-
-;; Keymappings
-;; hydra Settings
 
 ;; ITERM2 MOUSE SUPPORT
 (unless window-system

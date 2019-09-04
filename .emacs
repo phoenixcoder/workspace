@@ -4,7 +4,6 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-(require 'org)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-milk" . "http://melpa.milkbox.net/packages/"))
@@ -26,7 +25,7 @@
  '(org-agenda-files (quote ("~/org/life.org")))
  '(package-selected-packages
    (quote
-    (powerline smart-mode-line hydra exec-path-from-shell go-mode))))
+    (org-super-agenda undo-tree powerline smart-mode-line hydra exec-path-from-shell go-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,7 +55,7 @@
 (menu-bar-mode -1)
 (global-display-line-numbers-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
-2(setq echo-keystrokes 0.1
+(setq echo-keystrokes 0.1
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
@@ -66,13 +65,11 @@
 ;;(setq sml/theme 'dark)
 
 ;; Global Key Settings
-(global-set-key (kbd "S-<f1>") (lambda () (interactive) (org-agenda nil "t")))
 (global-set-key (kbd "S-<f2>") 'elfeed)
+(global-set-key (kbd "<f5>") 'delete-file)
 (global-set-key (kbd "<f12>") (lambda () (interactive) (find-file "~/.emacs")))
 (global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
 (global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))				  
-(define-key global-map (kbd "C-c l") 'org-store-link)
-(define-key global-map (kbd "C-c a") 'org-agenda)
 
 ;; Elfeed Settings
 (setq elfeed-feeds
@@ -100,8 +97,35 @@
 	"http://feeds.feedburner.com/martinkl"))
 
 ;; Org Settings
+(require 'org)
+(global-set-key (kbd "S-<f1>") (lambda () (interactive) (org-agenda nil "a")))
+(global-set-key (kbd "C-c c") (lambda () (interactive) (org-capture nil "t")))
+(define-key global-map (kbd "C-c l") 'org-store-link)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+(define-key org-mode-map (kbd "M-RET") (lambda() (interactive) (org-meta-return) (org-todo "TODO")))
 (setq org-log-done 'time)
 (setq org-agenda-files (list "~/org"))
+(setq org-default-notes-file (concat org-directory "/tasklist.org"))
+(setq org-capture-templates '(("t" "TODO" entry (file+headline "" "Task") "* TODO %?\nSCHEDULED: %T")))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "REVIEW(r)" "|" "DONE(d)" "DEFERRED(f)" "CANCELED(c)")))
+(setq org-todo-keyword-faces
+      (quote (("TODO"      :foreground "red"          :weight bold)
+              ("NEXT"      :foreground "blue"         :weight bold)
+              ("STARTED"   :foreground "cyan"         :weight bold)
+              ("WAITING"   :foreground "gold"         :weight bold)
+              ("REVIEW"    :foreground "magenta"      :weight bold)
+              ("DONE"      :foreground "forest green" :weight bold)
+              ("DEFERRED"  :foreground "dark red"     :weight bold)
+              ("CANCELED"  :foreground "dark red"     :weight bold))))
+
+;;;; START Org Agenda Formatting
+;; Color-code priorities
+(customize-set-variable 'org-agenda-fontify-priorities t)
+(customize-set-variable 'org-priority-faces
+                        (quote ((65 :foreground "magenta" :weight bold)
+                                (66 :foreground "green3")
+                                (67 :foreground "orange"))))
+;;;; END Org Agenda Formatting
 
 ;; Godoc Settings
 (defun set-exec-path-from-shell-PATH ()
@@ -112,11 +136,8 @@
     (setenv "PATH" path-from-shell)
     (setq eshell-path-env path-from-shell) ; for eshell users
     (setq exec-path (split-string path-from-shell path-separator))))
-
 (when window-system (set-exec-path-from-shell-PATH))
 (setenv "GOPATH" "/Users/phoenixcoder/workspace/projects/go")
-
-;; (add-to-list 'exec-path "/Users/phoenixcoder/workspace/projects/go/bin")
 (add-to-list 'exec-path "$GOPATH/bin")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
@@ -126,3 +147,5 @@
   (xterm-mouse-mode t)
   (defun track-mouse (e)) 
   (setq mouse-sel-mode t))
+
+(load "~/.emacs.d/init.el")

@@ -128,6 +128,8 @@ source $ZSH/oh-my-zsh.sh
 alias ls='ls -l'
 alias emacs='emacs -nw'
 alias work='cd /Users/phoenixcoder/workspace/projects/'
+alias workgo='cd /Users/phoenixcoder/workspace/projects/go'
+alias workggh='cd /Users/phoenixcoder/workspace/projects/go/src/github.com'
 alias workgop='cd /Users/phoenixcoder/workspace/projects/go/src/github.com/phoenixcoder'
 
 # Golang Configuration

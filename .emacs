@@ -18,14 +18,17 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-enabled-themes '(manoj-dark))
  '(custom-safe-themes
-   (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
- '(org-agenda-files (quote ("~/org/life.org")))
+   '("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+ '(org-agenda-files '("~/org/life.org"))
+ '(org-agenda-fontify-priorities t t)
+ '(org-priority-faces
+   '((65 :foreground "magenta" :weight bold)
+     (66 :foreground "green3")
+     (67 :foreground "orange")))
  '(package-selected-packages
-   (quote
-    (org-super-agenda undo-tree powerline smart-mode-line hydra exec-path-from-shell go-mode))))
+   '(add-node-modules-path web-beautify column-enforce-mode indent-tools yaml-mode prettier-js js2-mode go-playground org-super-agenda undo-tree powerline smart-mode-line hydra exec-path-from-shell go-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -49,6 +52,7 @@
 ;; http://aaronbedra.com/emacs.d/
 
 ;; General emacs Settings
+(global-auto-revert-mode t)
 (setq inhibit-splash-screen t
       initial-scratch-message nil
       initial-major-mode 'org-mode)
@@ -65,11 +69,36 @@
 ;;(setq sml/theme 'dark)
 
 ;; Global Key Settings
-(global-set-key (kbd "S-<f2>") 'elfeed)
+(global-set-key (kbd "C-c C-a") "∀")
+(global-set-key (kbd "C-c C-e") "∃")
+(global-set-key (kbd "C-c C-f") "⇒")
+(global-set-key (kbd "C-c C-n") 'elfeed)
 (global-set-key (kbd "<f5>") 'delete-file)
 (global-set-key (kbd "<f12>") (lambda () (interactive) (find-file "~/.emacs")))
+(global-set-key (kbd "C-c C-r") (lambda() (interactive) (load-file "~/.emacs")))
+(global-set-key (kbd "C-c C-q") 'query-replace)
 (global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
-(global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))				  
+(global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
+
+;; Calendar Settings
+(require 'calendar)
+;; (setq diary-date-forms
+;;      (cons '(backup monthname " *" day ", *" year ", *" dayname "\\W")
+;;        diary-american-date-forms))
+(defun mimick-diary-insert-entry (&optional omit-day-of-week-p)
+  (interactive)
+  (end-of-buffer)
+  (open-line 2)
+  (end-of-buffer)
+  (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p))
+  (end-of-buffer)
+  (insert " "))
+(setq diary-file "~/workspace/philosophy/journal")
+(add-hook 'diary-mode-hook 'mimick-diary-insert-entry)
+(define-key global-map (kbd "C-c C-j") (lambda ()
+				       (interactive)
+				       (find-file "~/workspace/philosophy/journal")))
+(define-key global-map (kbd "C-c C-c") 'calendar)
 
 ;; Elfeed Settings
 (setq elfeed-feeds
@@ -125,6 +154,12 @@
                         (quote ((65 :foreground "magenta" :weight bold)
                                 (66 :foreground "green3")
                                 (67 :foreground "orange"))))
+
+(setq view-diary-entries-initially t
+      mark-diary-entries-in-calendar t
+      number-of-diary-entries 7)
+(add-hook 'diary-display-hook 'fancy-diary-display)
+(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
 ;;;; END Org Agenda Formatting
 
 ;; Godoc Settings
@@ -141,6 +176,21 @@
 (add-to-list 'exec-path "$GOPATH/bin")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
+;; JavaScript Settings
+(require 'prettier-js)
+(add-hook 'js-mode-hook 'prettier-js-mode)
+(add-hook 'js-mode-hook '80-column-rule)
+(setq js-indent-level 2)
+(setq prettier-js-args '(
+			 "--arrow-parens" "always"
+			 "--trailing-comma" "none"
+			 "--jsx-bracket-same-line" "true"
+			 "--print-width" "80"))
+
+;; YAML Settings
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
 ;; ITERM2 MOUSE SUPPORT
 (unless window-system
   (require 'mouse)
@@ -149,3 +199,4 @@
   (setq mouse-sel-mode t))
 
 (load "~/.emacs.d/init.el")
+(load "~/.emacs.d/personal.el")

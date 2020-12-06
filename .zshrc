@@ -140,3 +140,4 @@ export GOBIN="/Users/phoenixcoder/workspace/projects/go/bin"
 export PATH=$PATH:/Users/phoenixcoder/Library/Python/3.7/bin
 export PATH=$PATH:${GOPATH}/bin
 export PATH=$PATH:/Users/phoenixcoder/miniconda3/bin
+export PATH=$PATH:/Users/phoenixcoder/workspace/projects/lib/mongodb-macos-x86_64-4.2.0/bin

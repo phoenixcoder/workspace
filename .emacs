@@ -179,13 +179,12 @@
 ;; JavaScript Settings
 (require 'prettier-js)
 (add-hook 'js-mode-hook 'prettier-js-mode)
-(add-hook 'js-mode-hook '80-column-rule)
 (setq js-indent-level 2)
 (setq prettier-js-args '(
 			 "--arrow-parens" "always"
 			 "--trailing-comma" "none"
 			 "--jsx-bracket-same-line" "true"
-			 "--print-width" "80"))
+			 ))
 
 ;; YAML Settings
 (require 'yaml-mode)

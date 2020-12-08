@@ -3,9 +3,6 @@
 !.vimrc
 !.zshrc
 !.emacs
-
-!*/
-*/*
 !.emacs.d/init.el
 !.emacs.d/personal.el
 !.gitconfig/*

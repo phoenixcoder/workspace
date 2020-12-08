@@ -127,16 +127,17 @@
 
 ;; Org Settings
 (require 'org)
-(global-set-key (kbd "S-<f1>") (lambda () (interactive) (org-agenda nil "a")))
+(global-set-key (kbd "C-c <f1>") (lambda () (interactive) (org-agenda nil "a")))
 (global-set-key (kbd "C-c c") (lambda () (interactive) (org-capture nil "t")))
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 (define-key org-mode-map (kbd "M-RET") (lambda() (interactive) (org-meta-return) (org-todo "TODO")))
+(setq truncate-lines nil)
 (setq org-log-done 'time)
 (setq org-agenda-files (list "~/org"))
 (setq org-default-notes-file (concat org-directory "/tasklist.org"))
-(setq org-capture-templates '(("t" "TODO" entry (file+headline "" "Task") "* TODO %?\nSCHEDULED: %T")))
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "REVIEW(r)" "|" "DONE(d)" "DEFERRED(f)" "CANCELED(c)")))
+(setq org-capture-templates '(("t" "TODO" entry (file+headline "" "tasks") "* TODO %?\nSCHEDULED: %T")))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "REVIEW(r)" "|" "DEFERRED(f)" "DONE(d)" "CANCELED(c)")))
 (setq org-todo-keyword-faces
       (quote (("TODO"      :foreground "red"          :weight bold)
               ("NEXT"      :foreground "blue"         :weight bold)
@@ -160,6 +161,7 @@
       number-of-diary-entries 7)
 (add-hook 'diary-display-hook 'fancy-diary-display)
 (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+(add-hook 'org-mode-hook 'toggle-word-wrap)
 ;;;; END Org Agenda Formatting
 
 ;; Godoc Settings

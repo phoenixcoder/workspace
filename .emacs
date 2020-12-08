@@ -28,7 +28,24 @@
      (66 :foreground "green3")
      (67 :foreground "orange")))
  '(package-selected-packages
-   '(add-node-modules-path web-beautify column-enforce-mode indent-tools yaml-mode prettier-js js2-mode go-playground org-super-agenda undo-tree powerline smart-mode-line hydra exec-path-from-shell go-mode)))
+   '(add-node-modules-path
+     web-beautify
+     column-enforce-mode
+     indent-tools
+     yaml-mode
+     prettier-js
+     js2-mode
+     go-playground
+     org-super-agenda
+     undo-tree powerline
+     smart-mode-line
+     hydra
+     exec-path-from-shell
+     go-mode
+     helm-gtags
+     function-args
+     )
+   ))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -71,6 +88,7 @@
 ;;(setq sml/theme 'dark)
 
 ;; Global Key Settings
+(global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c C-a") "∀")
 (global-set-key (kbd "C-c C-e") "∃")
 (global-set-key (kbd "C-c C-f") "⇒")
@@ -201,5 +219,36 @@
   (defun track-mouse (e)) 
   (setq mouse-sel-mode t))
 
+;; Helm Configuration
+(setq
+ helm-gtags-ignore-case t
+ helm-gtags-auto-update t
+ helm-gtags-use-input-at-cursor t
+ helm-gtags-pulse-at-cursor t
+ helm-gtags-prefix-key "\C-cg"
+ helm-gtags-suggested-key-mapping t
+ )
+
+(require 'helm-gtags)
+;; Enable helm-gtags-mode
+(add-hook 'dired-mode-hook 'helm-gtags-mode)
+(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+
+;; Function Args
+(fa-config-default)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(set-default 'semantic-case-fold t)
+
 (load "~/.emacs.d/init.el")
 (load "~/.emacs.d/personal.el")
+

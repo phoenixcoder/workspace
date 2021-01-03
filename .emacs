@@ -6,7 +6,6 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;; (add-to-list 'package-archives '("melpa-milk" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (custom-set-variables
@@ -32,7 +31,6 @@
      web-beautify
      column-enforce-mode
      indent-tools
-     yaml-mode
      prettier-js
      js2-mode
      go-playground
@@ -83,10 +81,6 @@
       visible-bell t)
 (show-paren-mode t)
 
-;; SML Settings
-;;(sml/setup)
-;;(setq sml/theme 'dark)
-
 ;; Global Key Settings
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c C-a") "∀")
@@ -102,9 +96,6 @@
 
 ;; Calendar Settings
 (require 'calendar)
-;; (setq diary-date-forms
-;;      (cons '(backup monthname " *" day ", *" year ", *" dayname "\\W")
-;;        diary-american-date-forms))
 (defun mimick-diary-insert-entry (&optional omit-day-of-week-p)
   (interactive)
   (end-of-buffer)
@@ -208,10 +199,6 @@
 			 "--jsx-bracket-same-line" "true"
 			 ))
 
-;; YAML Settings
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
 ;; ITERM2 MOUSE SUPPORT
 (unless window-system
   (require 'mouse)
@@ -244,11 +231,5 @@
 (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
 (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 
-;; Function Args
-(fa-config-default)
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(set-default 'semantic-case-fold t)
-
 (load "~/.emacs.d/init.el")
 (load "~/.emacs.d/personal.el")
-

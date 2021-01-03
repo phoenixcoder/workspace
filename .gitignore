@@ -2,6 +2,7 @@
 !.gitignore
 !.vimrc
 !.zshrc
+!.p10k.zsh
 !.emacs
 !.emacs.d/init.el
 !.emacs.d/personal.el

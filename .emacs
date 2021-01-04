@@ -17,33 +17,20 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes '(manoj-dark))
+ '(custom-enabled-themes (quote (manoj-dark)))
  '(custom-safe-themes
-   '("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
- '(org-agenda-files '("~/org/life.org"))
- '(org-agenda-fontify-priorities t t)
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(org-agenda-files nil)
+ '(org-agenda-fontify-priorities t)
  '(org-priority-faces
-   '((65 :foreground "magenta" :weight bold)
+   (quote
+    ((65 :foreground "magenta" :weight bold)
      (66 :foreground "green3")
-     (67 :foreground "orange")))
+     (67 :foreground "orange"))))
  '(package-selected-packages
-   '(add-node-modules-path
-     web-beautify
-     column-enforce-mode
-     indent-tools
-     prettier-js
-     js2-mode
-     go-playground
-     org-super-agenda
-     undo-tree powerline
-     smart-mode-line
-     hydra
-     exec-path-from-shell
-     go-mode
-     helm-gtags
-     function-args
-     )
-   ))
+   (quote
+    (add-node-modules-path web-beautify column-enforce-mode indent-tools prettier-js js2-mode go-playground org-super-agenda undo-tree powerline smart-mode-line hydra exec-path-from-shell go-mode helm-gtags function-args))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

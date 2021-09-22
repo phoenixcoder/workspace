@@ -4,8 +4,8 @@
 !.zshrc
 !.emacs
 
-!*/
 */*
+*/
 !.emacs.d/init.el
 !.emacs.d/personal.el
 !.emacs.d/user_settings/
